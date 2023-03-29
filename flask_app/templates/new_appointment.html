@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Appointment</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    
+</head>
+<body>
+    <header class="d-flex justify-content-between mt-4">
+        <a href="/appointments" class="btn btn-secondary home_new_appointment">Home</a>
+        <a href="/logout" class="btn btn-danger logout_new_appointment">Log Out</a>
+    </header>
+    {% with messages = get_flashed_messages(category_filter = ['tarea']) %}
+        {% if messages %}
+            <div class="alert alert-danger">
+                {% for message in messages %}
+                    <p>{{message}}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    <div class="container">
+        <form action="/create/appointment" method="post" class="bg-dark col-5 mx-auto p-5 mt-5">
+            <input type="hidden" name="user_id" value="{{user.id}}">
+            <h2 class="text-warning">Add an appointment</h2>
+            <div class="form-group mb-3">
+                <label class="text-white mb-1" for="task_name">Task:</label>
+                <input type="text" id="task_name" name="task_name" class="form-control">
+            </div>
+            <div class="form-group mb-3">
+                <label class="text-white mb-1" for="task_date">Date:</label>
+                <input type="date" name="task_date" id="task_date" class="form-control">
+            </div>
+            <div class="form-group row mb-3">
+                <label class="text-white mb-1" for="status">Status:</label>
+                <select class="form-control selector" id="status" name="status">
+                    <option value="" selected="selected"><b>-- Select a Status --</b></option>
+                    <option value="Pending">Pending</option>
+                    <option value="Missed">Missed</option>
+                    <option value="Done">Done</option>
+                </select>
+            </div>
+            <input type="submit" value="Add" class="btn btn-warning mt-2 add_button__new_appointment">
+        </form>
+    </div>
+</body>
+</html>
